@@ -24,7 +24,7 @@ public class ConvertMapHandler extends ConvertHandler{
 
 	@Override
 	public <T> T handle(Object obj, Class<T> clazz) throws NosonException {
-		if(clazz.equals(Map.class)){
+		if(Map.class.isAssignableFrom(clazz)){
 			if(null == obj) 
 				throw new NullPointerException();
 			return (T) allocation(obj, TypeUtils.getGenericityType(clazz));

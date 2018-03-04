@@ -24,7 +24,7 @@ public class ConvertListHandler extends ConvertHandler{
 
 	@Override
 	public <T> T handle(Object obj, Class<T> clazz) throws NosonException {
-		if(clazz.equals(List.class)){
+		if(List.class.isAssignableFrom(clazz)){
 			if(null == obj) return null;
 			if(obj instanceof List){
 				return (T) allocation(obj, TypeUtils.getGenericityType(clazz));
