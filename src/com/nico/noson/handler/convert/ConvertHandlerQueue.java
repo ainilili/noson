@@ -1,9 +1,8 @@
 package com.nico.noson.handler.convert;
 
 import java.util.LinkedList;
-import java.util.List;
 
-import com.nico.noson.handler.NoHandler;
+import com.nico.noson.exception.NosonException;
 
 /** 
  * 
@@ -26,7 +25,7 @@ public class ConvertHandlerQueue {
 		handlers.add(handler);
 	}
 
-	public <T> T handle(Object object, Class<T> clazz){
+	public <T> T handle(Object object, Class<T> clazz) throws NosonException{
 		if(handlers.size() > 0){
 			return handlers.getFirst().handle(object, clazz);
 		}

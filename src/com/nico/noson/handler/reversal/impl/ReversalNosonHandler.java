@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.nico.noson.Noson;
-import com.nico.noson.entity.NoMap.NoRecord;
+import com.nico.noson.entity.NoHashMap.NoRecord;
 import com.nico.noson.handler.reversal.ReversalHandler;
 import com.nico.noson.util.type.TypeUtils;
 

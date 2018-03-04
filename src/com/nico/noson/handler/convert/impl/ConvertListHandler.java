@@ -6,10 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.nico.noson.Noson;
-import com.nico.noson.entity.NoMap.NoRecord;
+import com.nico.noson.entity.NoHashMap.NoRecord;
+import com.nico.noson.entity.TypeBean;
+import com.nico.noson.exception.NosonException;
 import com.nico.noson.exception.NosonFormatException;
 import com.nico.noson.handler.convert.ConvertHandler;
 import com.nico.noson.policy.NoPolicy;
+import com.nico.noson.util.type.TypeUtils;
 
 /** 
  * 
@@ -20,14 +23,14 @@ import com.nico.noson.policy.NoPolicy;
 public class ConvertListHandler extends ConvertHandler{
 
 	@Override
-	public <T> T handle(Object obj, Class<T> clazz) {
+	public <T> T handle(Object obj, Class<T> clazz) throws NosonException {
 		if(clazz.equals(List.class)){
 			if(null == obj) return null;
 			if(obj instanceof List){
-				return (T) handleArray((List<Object>)obj);
+				return (T) allocation(obj, TypeUtils.getGenericityType(clazz));
 			}else if(obj instanceof Noson){
 				List<Object> list = new ArrayList<Object>();
-				list.add(handleNoson((Noson)obj));
+				list.add(allocation(obj, new TypeBean<>(Map.class)));
 				return  (T) list;
 			}
 		}

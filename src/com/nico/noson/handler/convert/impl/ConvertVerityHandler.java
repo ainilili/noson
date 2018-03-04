@@ -1,6 +1,8 @@
 package com.nico.noson.handler.convert.impl;
 
+import com.nico.noson.exception.NosonException;
 import com.nico.noson.handler.convert.ConvertHandler;
+import com.nico.noson.policy.NoPolicy;
 import com.nico.noson.util.string.StringUtils;
 
 /** 
@@ -12,9 +14,9 @@ import com.nico.noson.util.string.StringUtils;
 public class ConvertVerityHandler extends ConvertHandler{
 
 	@Override
-	public <T> T handle(Object obj, Class<T> clazz) {
+	public <T> T handle(Object obj, Class<T> clazz) throws NosonException {
 		if(obj == null || clazz == null){
-			return null;
+			throw new NullPointerException();
 		}
 		return nextHandler.handle(obj, clazz);
 	}

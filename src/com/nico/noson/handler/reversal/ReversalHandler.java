@@ -8,8 +8,6 @@ import java.util.Map.Entry;
 
 import com.nico.noson.Noson;
 import com.nico.noson.annotation.NoIgnore;
-import com.nico.noson.entity.NoMap.NoRecord;
-import com.nico.noson.handler.convert.ConvertHandler;
 import com.nico.noson.util.reflect.FieldUtils;
 import com.nico.noson.util.type.TypeUtils;
 
@@ -43,7 +41,7 @@ public abstract class ReversalHandler {
 		StringBuilder builder = new StringBuilder();
 		builder.append("{");
 		int index = 0;
-		for(NoRecord<String, Object> record: noson.recordSet()){
+		for(Entry<String, Object> record: noson.recordSet()){
 			Object value = record.getValue();
 			if(value != null){
 				builder.append("\"" + record.getKey() +"\":");

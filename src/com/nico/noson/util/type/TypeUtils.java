@@ -4,9 +4,13 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.nico.noson.config.NoConfig;
+import com.nico.noson.entity.TypeBean;
+import com.nico.noson.entity.User;
 
 /** 
  * Noson类型转换工具
@@ -14,7 +18,7 @@ import com.nico.noson.config.NoConfig;
  * @version 创建时间：2017年11月25日 下午4:55:08
  */
 public class TypeUtils {
-	
+
 	/**
 	 * JSON属性转类型
 	 * @param param
@@ -52,7 +56,7 @@ public class TypeUtils {
 			}
 		}
 	}
-	
+
 	/**
 	 * 判断是否是基本类型
 	 * @param clazz 被判断的class
@@ -75,7 +79,7 @@ public class TypeUtils {
 		}
 		return inseparable;
 	}
-	
+
 	/**
 	 * 对被转换的对象进行包装
 	 * @param obj 被转换的对象
@@ -96,11 +100,46 @@ public class TypeUtils {
 		}
 		return "\"" + obj.getClass().getName() + "\"";
 	}
-	
-	public static Class<?>[] getGenericityType(Class<?> clazz){
-		ParameterizedType superclass =(ParameterizedType) clazz.getGenericSuperclass();
-		Type[] actualTypeArguments = superclass.getActualTypeArguments();
-		return (Class<?>[]) actualTypeArguments;
+
+	/**
+	 * 获取Class的泛型类型数组
+	 * 
+	 * @param clazz class
+	 * @return
+	 */
+	public static TypeBean<?> getGenericityType(Class<?> clazz){
+		TypeBean<?> typeBean = new TypeBean<>(clazz);
+		if(clazz == null)
+			throw new NullPointerException("Class is null");
+		Type superclass = clazz.getGenericSuperclass();
+		if(superclass != null){
+			if(superclass instanceof Class) {
+				throw new RuntimeException("Missing type parameter.");
+			} else {
+				ParameterizedType parameterized = (ParameterizedType)superclass;
+				Type[] types = parameterized.getActualTypeArguments();
+				typeBean.setGenericityBeans(getGenericityTypes(types));
+			}
+		}
+		return typeBean;
 	}
-	
+
+	public static TypeBean[] getGenericityTypes(Type[] types){
+		if(types.length == 0)
+			throw new ArrayIndexOutOfBoundsException(0);
+		TypeBean<?>[] typeBeans = new TypeBean[types.length];
+		int index = 0;
+		for(Type type: types){
+			TypeBean<?> typeBean = null;
+			if(type instanceof ParameterizedType){
+				typeBean = new TypeBean<>((Class<?>)((ParameterizedType) type).getRawType());
+				typeBean.setGenericityBeans(getGenericityTypes(((ParameterizedType) type).getActualTypeArguments()));
+			}else{
+				typeBean = new TypeBean<>((Class<?>)type);
+			}
+			typeBeans[index ++] = typeBean;
+		}
+		return typeBeans;
+	}
+
 }

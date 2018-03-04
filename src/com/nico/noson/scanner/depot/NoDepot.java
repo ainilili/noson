@@ -3,6 +3,8 @@ package com.nico.noson.scanner.depot;
 import java.util.List;
 
 import com.nico.noson.Noson;
+import com.nico.noson.entity.NoType;
+import com.nico.noson.exception.NosonException;
 import com.nico.noson.handler.convert.ConvertHandlerQueue;
 import com.nico.noson.handler.convert.impl.*;
 import com.nico.noson.handler.reversal.ReversalHandlerQueue;
@@ -26,6 +28,7 @@ public class NoDepot {
 		{
 			handlerQueue = new ConvertHandlerQueue();
 			handlerQueue.add(new ConvertVerityHandler());
+			handlerQueue.add(new ConvertNoTypeHandler());
 			handlerQueue.add(new ConvertMapHandler());
 			handlerQueue.add(new ConvertListHandler());
 			handlerQueue.add(new ConvertEntityHandler());
@@ -75,7 +78,21 @@ public class NoDepot {
 	}
 	
 	public static <T> T convert(Object obj, Class<T> clazz){
-		return handlerQueue.handle(obj, clazz);
+		try {
+			return handlerQueue.handle(obj, clazz);
+		} catch (NosonException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static <T> T convert(Object obj, NoType<T> type){
+		try {
+			return (T)handlerQueue.handle(obj, type.getClass());
+		} catch (NosonException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static String reversal(Object obj){

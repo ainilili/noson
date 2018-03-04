@@ -2,12 +2,13 @@ package com.nico.noson;
 
 
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 
+import com.nico.noson.entity.NoLinkedMap;
 import com.nico.noson.entity.NoMap;
-import com.nico.noson.entity.NoMap.NoRecord;
+import com.nico.noson.entity.NoType;
 import com.nico.noson.scanner.depot.NoDepot;
-import com.nico.noson.util.string.StringUtils;
 
 /** 
  * 
@@ -20,10 +21,10 @@ public class Noson {
 	private NoMap<String, Object> noMap;
 	
 	public Noson(){
-		this.noMap = new NoMap<String, Object>();
+		this.noMap = new NoLinkedMap<String, Object>();
 	}
 	
-	public Set<NoRecord<String, Object>> recordSet(){
+	public Set<Entry<String, Object>> recordSet(){
 		return noMap.recordSet();
 	}
 	
@@ -73,6 +74,10 @@ public class Noson {
 	
 	public static String reversal(Object obj){
 		return NoDepot.reversal(obj);
+	}
+	
+	public static <T> T convert(Object obj, NoType<T> type){
+		return NoDepot.convert(obj instanceof String? NoDepot.parseObject((String)obj) : obj, type);
 	}
 	
 	public String toString(){

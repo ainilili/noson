@@ -6,6 +6,8 @@ import java.util.Map;
 
 import com.nico.noson.Noson;
 import com.nico.noson.exception.NosonFormatException;
+import com.nico.noson.exception.TypeNotMatchException;
+import com.nico.noson.exception.TypeNotSupportException;
 import com.nico.noson.handler.convert.ConvertHandler;
 import com.nico.noson.policy.NoPolicy;
 import com.nico.noson.util.type.TypeUtils;
@@ -19,10 +21,10 @@ import com.nico.noson.util.type.TypeUtils;
 public class ConvertEntityHandler extends ConvertHandler{
 
 	@Override
-	public <T> T handle(Object obj, Class<T> clazz) {
+	public <T> T handle(Object obj, Class<T> clazz) throws TypeNotMatchException, TypeNotSupportException {
 		if(null == obj) return null;
 		if(obj instanceof Noson){
-			return handleObject((Noson)obj, clazz);
+			return (T) handleObject((Noson)obj, TypeUtils.getGenericityType(clazz));
 		}
 		return null;
 	}
