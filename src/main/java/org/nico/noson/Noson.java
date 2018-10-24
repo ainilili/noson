@@ -112,17 +112,17 @@ public class Noson extends LinkedHashMap<String, Object> implements Map<String, 
 	}
 
 	/**
-	 * 将对象序列化成Json串
+	 * Serialize the object to a Json
 	 * 
-	 * @param obj 要被序列化的对象
-	 * @return 序列化后的字符串
+	 * @param obj Object to be serialized
+	 * @return The serialized string
 	 */
 	public static String reversal(Object obj){
 		return JsonWrapper.reversal(obj);
 	}
 
 	/**
-	 * Noson自身序列化成Json
+	 * Noson serializes itself into Json
 	 */
 	public String toString(){
 		return reversal(this);
