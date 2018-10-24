@@ -1,6 +1,6 @@
 # Ourbatis
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.gitee.ainilili/noson/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.gitee.ainilili/noson/)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.smallnico/noson/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.smallnico/noson/)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 ## Introduce
@@ -10,10 +10,10 @@ A simple Json parser with nice performance
 ## Install
 Quick setup
 ```
-<dependency>
-  <groupId>com.gitee.ainilili</groupId>
-  <artifactId>noson</artifactId>
-  <version>1.1.4</version>
+ <dependency>
+	<groupId>com.smallnico</groupId>
+	<artifactId>noson</artifactId>
+	<version>1.1.4</version>
 </dependency>
 ```
 ## Use
