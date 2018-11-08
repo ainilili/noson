@@ -132,6 +132,8 @@ public class TypeUtils {
 			inseparable = true;
 		}else if(Enum.class.isAssignableFrom(clazz)){
 			inseparable = true;
+		}else if(Character.class.isAssignableFrom(clazz)){
+			inseparable = true;
 		}
 		return inseparable;
 	}
@@ -240,12 +242,7 @@ public class TypeUtils {
 				&& currentStruct.getClassType().isArray()){
 			Collection list = (Collection) value;
 			Class<?> componentType = currentStruct.getClassType().getComponentType();
-			Object array = Array.newInstance(componentType, list.size());
-			int index = 0;
-			for(Object obj: list){
-				Array.set(array, index++, convertType(componentType, obj));
-			}
-			value = array;
+			value = listToArray(list, componentType);
 		}
 		if(target instanceof Collection){
 			((Collection<Object>) target).add(value);
@@ -284,7 +281,16 @@ public class TypeUtils {
 			//			asmClassProxy.set(target, key, value);
 		}
 	}
-
+	
+	public static Object listToArray(Collection list, Class<?> targetClass) throws ArrayIndexOutOfBoundsException, IllegalArgumentException, NosonException {
+		Object array = Array.newInstance(targetClass, list.size());
+		int index = 0;
+		for(Object obj: list){
+			Array.set(array, index++, convertType(targetClass, obj));
+		}
+		return array;
+	}
+	
 	/**
 	 * Get {@link Field} type from clazz by field name with cache.
 	 * 

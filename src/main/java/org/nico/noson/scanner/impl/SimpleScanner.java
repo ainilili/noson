@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -133,6 +134,10 @@ public class SimpleScanner extends EmptyScanner{
 					SimpleStruct preSimpleStruct = structStack.peek();
 					TypeUtils.setParamIntoObject(preSimpleStruct.getValue(), currentSimpleStruct);
 					currentSimpleStruct = preSimpleStruct;
+				}else {
+					if(currentSimpleStruct.getValue() instanceof Collection && currentSimpleStruct.getClassType().isArray()) {
+						result = TypeUtils.listToArray((Collection) currentSimpleStruct.getValue(), currentSimpleStruct.getClassType().getComponentType());
+					}
 				}
 				preObjectIsUserDefined = currentSimpleStruct.getStructType() == StructType.OBJECT;
 				preObjectType = currentSimpleStruct.getClassType();

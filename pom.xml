@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.smallnico</groupId>
 	<artifactId>noson</artifactId>
-	<version>1.1.4</version>
+	<version>1.1.5</version>
 	<packaging>jar</packaging>
 	<name>noson</name>
 	<url>https://gitee.com/ainilili/noson</url>
@@ -20,8 +20,17 @@
 	<scm>
 		<url>https://gitee.com/ainilili/noson</url>
 	</scm>
-	
-	 <properties>
+
+	<developers>
+		<developer>
+			<name>nico</name>
+			<email>ainililia@163.com</email>
+			<organization>iamnico</organization>
+			<organizationUrl>http://smallnico.com</organizationUrl>
+		</developer>
+	</developers>
+
+	<properties>
 		<java.version.source>1.8</java.version.source>
 		<java.version.target>1.8</java.version.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,8 +40,8 @@
 		<ourbatis-spring-boot.version>1.0.0</ourbatis-spring-boot.version>
 		<java.test.compiler.argument>${java.compiler.argument}</java.test.compiler.argument>
 	</properties>
-    
-    <build>
+
+	<build>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -109,8 +118,8 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-        <plugins>
-        	<plugin>
+		<plugins>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
@@ -130,16 +139,16 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
 			</plugin>
-        </plugins>
+		</plugins>
 	</build>
-	
+
 	<distributionManagement>
 		<snapshotRepository>
 			<id>nico</id>
 			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
 		</snapshotRepository>
 		<repository>
-			<id>nico</id> 
+			<id>nico</id>
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>

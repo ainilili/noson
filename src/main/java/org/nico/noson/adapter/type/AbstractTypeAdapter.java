@@ -25,6 +25,8 @@ public abstract class AbstractTypeAdapter {
 				put(Boolean.class, new TypeAdapter_Boolean());
 				put(byte.class, new TypeAdapter_byt());
 				put(Byte.class, new TypeAdapter_Byte());
+				put(char.class, new TypeAdapter_char());
+				put(Character.class, new TypeAdapter_Character());
 				put(short.class, new TypeAdapter_sho());
 				put(Short.class, new TypeAdapter_Short());
 				put(int.class, new TypeAdapter_int());
