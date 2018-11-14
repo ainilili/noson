@@ -13,7 +13,7 @@ Quick setup
  <dependency>
 	<groupId>com.smallnico</groupId>
 	<artifactId>noson</artifactId>
-	<version>1.1.5</version>
+	<version>1.1.6</version>
 </dependency>
 ```
 ## Use
