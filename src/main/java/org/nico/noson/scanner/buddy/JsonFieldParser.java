@@ -27,11 +27,22 @@ public interface JsonFieldParser {
 		private String value;
 		
 		private int len;
+		
+		private boolean strFlag;
 
-		public ParserResult(String value, int len) {
+		public ParserResult(String value, int len, boolean strFlag) {
 			super();
 			this.value = value;
 			this.len = len;
+			this.strFlag = strFlag;
+		}
+
+		public final boolean isStrFlag() {
+			return strFlag;
+		}
+
+		public final void setStrFlag(boolean strFlag) {
+			this.strFlag = strFlag;
 		}
 
 		public String getValue() {

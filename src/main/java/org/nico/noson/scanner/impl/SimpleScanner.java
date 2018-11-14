@@ -1,11 +1,5 @@
 package org.nico.noson.scanner.impl;
 
-import java.beans.IntrospectionException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +44,7 @@ public class SimpleScanner extends EmptyScanner{
 		//	StringBuffer valueBuffer = new StringBuffer();
 		String keyCache = null;
 		String valueCache = null;
+		boolean strFlag = false;
 
 
 		//	初始化状态
@@ -123,7 +118,7 @@ public class SimpleScanner extends EmptyScanner{
 					currentSimpleStruct = structStack.peek();
 
 					String key = TypeUtils.typeAllotKey(keyCache);
-					Object value = TypeUtils.typeAllotValue(valueCache);
+					Object value = TypeUtils.typeAllotValue(valueCache, strFlag);
 
 					TypeUtils.setParamIntoObject(currentSimpleStruct.getValue(), new SimpleStruct(key, value));
 
@@ -165,7 +160,7 @@ public class SimpleScanner extends EmptyScanner{
 						SimpleStruct currentSimpleStruct = structStack.peek();
 
 						String key = TypeUtils.typeAllotKey(keyCache);
-						Object value = TypeUtils.typeAllotValue(valueCache);
+						Object value = TypeUtils.typeAllotValue(valueCache, strFlag);
 						
 						TypeUtils.setParamIntoObject(currentSimpleStruct.getValue(), new SimpleStruct(key, value));
 
@@ -176,6 +171,7 @@ public class SimpleScanner extends EmptyScanner{
 				}else{
 					ParserResult parserResult = jsonValueParser.parser(json, index);
 					valueCache = parserResult.getValue();
+					strFlag = parserResult.isStrFlag();
 					index += parserResult.getLen() - 1;
 				}
 				break;

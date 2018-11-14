@@ -56,16 +56,20 @@ public class TypeUtils {
 	 * @param param param
 	 * @return obj
 	 */
-	public static Object typeAllotValue(String param){
+	public static Object typeAllotValue(String param, boolean strFlag){
 		if(param == null)
 			return param;
 		Object result = param;
-		if((result = CacheManager.getValueCache().getCache(param)) != null){
+		if((result = CacheManager.getValueCache().getCache(param + strFlag)) != null){
 			return result;
 		}else{
-			try{
-				result = NosonConfig.DEFAULT_DATE_FORMAT.parse(param);
-			}catch(Exception e0){
+			if(strFlag) {
+				result = param;
+			}else if(param.equalsIgnoreCase("true") || param.equalsIgnoreCase("false")){
+				result = Boolean.parseBoolean(param);
+			}else if(param.equalsIgnoreCase("null")){
+				result = null;
+			}else {
 				try {
 					result = Integer.parseInt(param);
 				}catch(NumberFormatException e) {
@@ -75,22 +79,14 @@ public class TypeUtils {
 						try{
 							result = new BigDecimal(param);
 						}catch(NumberFormatException e4){
-							if(BOOLEAN_TRUE.equalsIgnoreCase(param) || BOOLEAN_FALSE.equalsIgnoreCase(param)){
-								result = Boolean.parseBoolean(param);
-							}else{
-								if(param.equals("null")){
-									result = null;
-								}else{
-									result = param;
-								}
-							}
+							result = param;
 						}
 					}
 				}
 			}
 		}
 		result = result instanceof String ? FormatUtils.deEscape((String) result) : result;
-		CacheManager.getValueCache().putCache(param, result);
+		CacheManager.getValueCache().putCache(param + strFlag, result);
 		return result;
 	}
 

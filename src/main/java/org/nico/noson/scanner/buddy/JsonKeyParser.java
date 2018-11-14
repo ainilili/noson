@@ -8,6 +8,7 @@ public class JsonKeyParser implements JsonFieldParser{
 		int subTail = -1;
 		int increment = 0;
 		int temp = 0;
+		boolean strFlag = false;
 		if(startChar == '\'' || startChar == '"'){
 			increment = 2;
 			temp = offset;
@@ -16,10 +17,11 @@ public class JsonKeyParser implements JsonFieldParser{
 			}
 			++ offset;
 			subTail = temp;
+			strFlag = true;
 		}else{
 			subTail = json.indexOf(':', offset);
 		}
-		return new ParserResult(json.substring(offset, subTail), subTail - offset + increment);
+		return new ParserResult(json.substring(offset, subTail), subTail - offset + increment, strFlag);
 	}
 
 }
